@@ -4,7 +4,20 @@
             {{ __('Edit Leverancier') }}
         </h2>
     </x-slot>
-
+    @if ($errors->any())
+        <div x-data="{ showError: true }" x-init="setTimeout(() => showError = false, 3000)" x-show="showError" class="bg-red-500 text-white px-4 py-2 mt-4">
+            <div class="container mx-auto">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+            <script>
+                setTimeout(function() {
+                    window.location.href = '{{ route("user.show", $user->id) }}';
+                }, 3000);
+            </script>
+        </div>
+    @endif
     <div class="p-6 bg-white border-b border-gray-200 mx-auto max-w-7xl">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
@@ -14,66 +27,49 @@
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="name" class="w-1/3">{{ __('Name') }}</label>
-                        <input id="name" class="block mt-1 w-2/3" type="text" name="name" value="{{ old('name', $user->name) }}" required autofocus />
-                        @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="name" class="block mt-1 w-2/3" type="text" name="name" value="{{ $user->name }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="contact_person" class="w-1/3">{{ __('Contact Person') }}</label>
-                        <input id="contact_person" class="block mt-1 w-2/3" type="text" name="contact_person" value="{{ old('contact_person', $user->contact_person) }}" required />
-                        @error('contact_person')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="contact_person" class="block mt-1 w-2/3" type="text" name="contact_person" value="{{ $user->contact_person }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="number" class="w-1/3">{{ __('Number') }}</label>
-                        <input id="number" class="block mt-1 w-2/3" type="text" name="number" value="{{ old('number', $user->number) }}" required />
-                        @error('number')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="number" class="block mt-1 w-2/3" type="text" name="number" value="{{ $user->number }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="mobile" class="w-1/3">{{ __('Mobile') }}</label>
-                        <input id="mobile" class="block mt-1 w-2/3" type="text" name="mobile" value="{{ old('mobile', $user->mobile) }}" required />
-                        @error('mobile')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="mobile" class="block mt-1 w-2/3" type="text" name="mobile" value="{{ $user->mobile }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="street_name" class="w-1/3">{{ __('Street') }}</label>
-                        <input id="street_name" class="block mt-1 w-2/3" type="text" name="street_name" value="{{ old('street_name', $user->street_name) }}" required />
-                        @error('street_name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="street_name" class="block mt-1 w-2/3" type="text" name="street_name" value="{{ $user->street_name }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="house_number" class="w-1/3">{{ __('House Number') }}</label>
-                        <input id="house_number" class="block mt-1 w-2/3" type="text" name="house_number" value="{{ old('house_number', $user->house_number) }}" required />
-                        @error('house_number')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="house_number" class="block mt-1 w-2/3" type="text" name="house_number" value="{{ $user->house_number }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="zip_code" class="w-1/3">{{ __('Zip Code') }}</label>
-                        <input id="zip_code" class="block mt-1 w-2/3" type="text" name="zip_code" value="{{ old('zip_code', $user->zip_code) }}" required />
-                        @error('zip_code')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="zip_code" class="block mt-1 w-2/3" type="text" name="zip_code" value="{{ $user->zip_code }}" required autofocus />
                     </div>
+
 
                     <div class="mt-4 flex justify-between items-center">
                         <label for="city" class="w-1/3">{{ __('City') }}</label>
-                        <input id="city" class="block mt-1 w-2/3" type="text" name="city" value="{{ old('city', $user->city) }}" required />
-                        @error('city')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <input id="city" class="block mt-1 w-2/3" type="text" name="city" value="{{ $user->city }}" required autofocus />
                     </div>
 
                     <div class="flex justify-center items-center mt-6 space-x-4">

@@ -54,19 +54,20 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'contact_person' => 'required|max:255',
-            'number' => 'required|unique:users,number,'.$user->id,
-            'mobile' => 'required|digits:10|unique:users,mobile,'.$user->id,
-            'street_name' => 'required|max:255',
-            'house_number' => 'required|numeric',
-            'zip_code' => 'required|numeric',
-            'city' => 'required|max:255',
-        ]);
+public function update(Request $request, User $user)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|max:255',
+        'contact_person' => 'required|max:255',
+        'number' => 'required|unique:users,number,'.$user->id,
+        'mobile' => 'required|digits:10|unique:users,mobile,'.$user->id,
+        'street_name' => 'required|max:255',
+        'house_number' => 'required|numeric',
+        'zip_code' => 'required|numeric',
+        'city' => 'required|max:255',
+    ]);
 
+    try {
         $user->update($request->only('name', 'contact_person', 'number', 'mobile'));
 
         $contactData = $request->only('street_name', 'house_number', 'zip_code', 'city');
@@ -78,8 +79,12 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.show', $user->id)
-        ->with('success', 'User updated successfully');
+            ->with('success', 'User updated successfully');
+    } catch (\Exception $e) {
+        // Validation error occurred, redirect back with old input
+        return redirect()->back()->withInput();
     }
+}
 
     public function destroy(User $user)
     {
